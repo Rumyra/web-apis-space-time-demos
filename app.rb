@@ -10,6 +10,6 @@ get '/' do
 	erb :index
 end
 
-get '/another' do
-	erb :another
+get '/animation' do
+	erb :southamerica
 end

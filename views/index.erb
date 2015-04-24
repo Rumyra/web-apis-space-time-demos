@@ -30,27 +30,31 @@
 <script type="text/javascript">
 
 
-var mapDiv = document.getElementById('map');
-var newMap;
+var mapDiv = document.getElementById('map'),
+		newMap,
+		setCenter = {};
+// refactor into init()
 if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function (position) {
-		var latCoords = position.coords.latitude;
-		var longCoords = position.coords.longitude;
+		setCenter.lat = position.coords.latitude;
+		setCenter.lng = position.coords.longitude;
 		// see app.js for createMap function (creates a google map)
-		newMap = createMap(mapDiv, latCoords, longCoords);
+		newMap = createMap(mapDiv, setCenter.lat, setCenter.lng);
+		showRoute();
 	});
 } else {
 	console.warn('sorry, geolocation not supported');
 }
 
-var destinationForm = document.forms[0];
-destinationForm.onsubmit = function(e) {
-	e.preventDefault();
-	var dest = destinationForm.destination.value;
-	// see app.js for the calculateRoute function (uses google maps directions service to give route)
-	calculateRoute('Yatton Keynell', dest, newMap);
+function showRoute() {
+	var destinationForm = document.forms[0];
+	destinationForm.onsubmit = function(e) {
+		e.preventDefault();
+		var dest = destinationForm.destination.value;
+		// see app.js for the calculateRoute function (uses google maps directions service to give route)
+		calculateRoute('London', dest, newMap);
+	}
 }
-
 
 function init() {
 	

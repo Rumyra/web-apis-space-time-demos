@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></head>
+  <title>A journey through Web API Space & Time</title>
+  <link type="text/css" href="style.css" rel="stylesheet" media="screen" />
+
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+  <script src="app.js"></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <form method="post" action="#" id="directions">
+      <div class="form-field">
+        <label for="">Where would you like to go?</label>
+        <input type="text" name="destination" id="destination" />
+        <input type="submit" Value="Get Directions" />
+      </div>
+    </form>
+
+    <div id="map"></div>
+
+    <div id="golden-condor"></div>
+    <img id="mcog" src="mcog.gif" />
+
+  </div>
+
+  <!-- go to south america, start animation...-->
+  <section id="south-america">
+
+  </section>
+
+  <section id="moon">
+    <div id="light-side"></div>
+    <div id="dark-side"></div>
+  </section>
+  
+</body>
+
+<script type="text/javascript">
+
+// initiate map
+var mapDiv = document.getElementById('map'),
+    newMap,
+    setCenter = {},
+    destinationForm = document.forms[0],
+    destination = '';
+
+function init() {
+  initMap();
+  getDest(destinationForm);
+
+}
+init();
+
+function initMap() {
+  // google map shizzle
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setCenter.lat = position.coords.latitude;
+      setCenter.lng = position.coords.longitude;
+      // see app.js for createMap function (creates a google map)
+      newMap = createMap(mapDiv, setCenter.lat, setCenter.lng);
+    });
+  } else {
+    console.warn('sorry, geolocation not supported');
+  }
+}
+
+function getDest(formEl) {
+  formEl.addEventListener("submit", function(e) {
+    e.preventDefault();
+    destination = destinationForm.destination.value;
+    playAnimation(destination);
+  }, false);
+}
+
+function playAnimation(dest) {
+  if (dest == 'south america') {
+    console.log('cities');
+    newMap = createMap(mapDiv, -22.9, -43.2);
+    animateCondor();
+    showCities();
+  } else if (dest == 'moon') {
+    console.log('clangers');
+  } else {
+    console.log('ambient');
+  }
+}
+
+function showCities() {
+  document.onkeypress = function(evt) {
+    // evt = evt || window.event;
+    var charCode = evt.keyCode;
+    if (charCode == 48) {
+      animateGif();
+    }
+  };
+}
+
+// var dest = getDest();
+
+// var Animations = {};
+// Animations.targets = {condor: document.getElementById('golden-condor')};
+// Animations.motionpathFly = new Animation(Animations.targets.condor,
+//   new MotionPathEffect("M25,25 " +
+//         "a150,100 0 0,1 300,0 " +
+//         "a75,50 0 0,1 150,0 " +
+//         "a35,20 0 0,1 70,0 " +
+//         "a2,1 0 0,1 35,0 " +
+//         "h45"), {
+//     duration: 2500
+// });
+var condor = document.getElementById('golden-condor');
+function animateCondor() {
+  condor.animate([
+    {opacity: '1', transform: 'translate(-200px, 0px)'},
+    {opacity: '1', transform: 'translate(1200px, -700px)'}
+    ], {
+      duration:2500,
+      iterations:1,
+      delay:300
+  });
+}
+
+var goldGif = document.getElementById('mcog');
+function animateGif() {
+  goldGif.animate([
+    {opacity: '0'},
+    {opacity: '1'}
+    ], {
+      duration:500,
+      iterations:1,
+      delay:0
+  });
+  goldGif.style.opacity = '1';
+}
+
+destinationForm.addEventListener("submit", function(e) {
+  e.preventDefault();
+  document.timeline.play(Animations.motionpathFly);
+}, false);
+
+
+if (newMap === 'south america') {
+  // do cities of gold animation
+  alert('yowsers!');
+} else if (newMap == 'moon') {
+  // fade out maps, fade in video & start playing
+}
+
+// add event listener for low light - if falls below certain value, make screen dark, start playing Pink Floyd
+
+function lowLight() {
+
+}
+
+
+
+</script>
+</html>

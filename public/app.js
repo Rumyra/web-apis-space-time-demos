@@ -9,7 +9,7 @@ function createMap(mapEl, mapLat, mapLon) {
 }
 
 // google maps calculate route function, modified from http://www.sitepoint.com/find-a-route-using-the-geolocation-and-the-google-maps-api/
-function calculateRoute(from, to, mapEl) {
+function calculateRoute(from, to, googleMap) {
   var directionsService = new google.maps.DirectionsService();
   var directionsRequest = {
     origin: from,
@@ -19,17 +19,15 @@ function calculateRoute(from, to, mapEl) {
   };
   directionsService.route(
     directionsRequest,
-    function(response, status)
-    {
-      if (status == google.maps.DirectionsStatus.OK)
-      {
+    function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
         new google.maps.DirectionsRenderer({
-          map: mapEl,
+          map: googleMap,
           directions: response
         });
+      } else {
+        console.warn('Unable to retrieve your route');
       }
-      else
-        $("#error").append("Unable to retrieve your route<br />");
     }
   );
 }
