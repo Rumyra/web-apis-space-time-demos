@@ -29,16 +29,6 @@
 
   </div>
 
-  <!-- go to south america, start animation...-->
-  <section id="south-america">
-
-  </section>
-
-  <section id="moon">
-    <div id="light-side"></div>
-    <div id="dark-side"></div>
-  </section>
-  
 </body>
 
 <script type="text/javascript">
@@ -139,27 +129,6 @@ function animateGif() {
   });
   goldGif.style.opacity = '1';
 }
-
-destinationForm.addEventListener("submit", function(e) {
-  e.preventDefault();
-  document.timeline.play(Animations.motionpathFly);
-}, false);
-
-
-if (newMap === 'south america') {
-  // do cities of gold animation
-  alert('yowsers!');
-} else if (newMap == 'moon') {
-  // fade out maps, fade in video & start playing
-}
-
-// add event listener for low light - if falls below certain value, make screen dark, start playing Pink Floyd
-
-function lowLight() {
-
-}
-
-
 
 </script>
 </html>

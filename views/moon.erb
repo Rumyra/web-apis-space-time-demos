@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></head>
+  <title>A journey through Web API Space & Time</title>
+  <link type="text/css" href="style.css" rel="stylesheet" media="screen" />
+
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+  <script src="app.js"></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <div id="map-stuff">
+
+      <form method="post" action="#" id="directions">
+        <div class="form-field">
+          <label for="">Where would you like to go?</label>
+          <input type="text" name="destination" id="destination" />
+          <input type="submit" Value="Get Directions" />
+        </div>
+      </form>
+
+      <div id="map"></div>
+
+    </div>
+
+    <div id="moon">
+      <section id="light-side"></section>
+    </div>
+
+    <audio id="soundFile" src="clangers.wav"></audio>
+
+  </div>
+  
+</body>
+
+<script type="text/javascript">
+
+// initiate map
+var mapDiv = document.getElementById('map'),
+    firstContainer = document.getElementById('map-stuff'),
+    moonDiv = document.getElementById('moon'),
+    newMap,
+    setCenter = {},
+    destinationForm = document.forms[0],
+    destination = '',
+    AudioContext = (window.AudioContext || window.webkitAudioContext);
+
+function init() {
+  initMap();
+  getDest(destinationForm);
+}
+init();
+
+function initMap() {
+  // google map shizzle
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setCenter.lat = position.coords.latitude;
+      setCenter.lng = position.coords.longitude;
+      // see app.js for createMap function (creates a google map)
+      newMap = createMap(mapDiv, setCenter.lat, setCenter.lng);
+    });
+  } else {
+    console.warn('sorry, geolocation not supported');
+  }
+}
+
+function getDest(formEl) {
+  formEl.addEventListener("submit", function(e) {
+    e.preventDefault();
+    destination = destinationForm.destination.value;
+    playClangers(destination);
+  }, false);
+}
+
+
+var soundEl = document.getElementById('soundFile'),
+  audioCtx = new AudioContext,
+  audioSource = audioCtx.createMediaElementSource(soundEl),
+  delay = audioCtx.createDelay();
+delay.delayTime.value = 0.3;
+
+function playClangers(dest) {
+  if (dest == 'moon') {
+    console.log('clangers');
+    animateMoon();
+    // soundEl.play();
+    setDelay(audioSource);
+  }
+}
+
+function setDelay(source) {
+  source.connect(delay);
+  source.connect(audioCtx.destination);
+  delay.connect(audioCtx.destination);
+  soundEl.play();
+}
+
+function showClangers() {
+  document.onkeypress = function(evt) {
+    // evt = evt || window.event;
+    var charCode = evt.keyCode;
+    if (charCode == 48) {
+      animateGif();
+    }
+  };
+}
+
+function animateMoon() {
+  firstContainer.animate([
+    {opacity: '1'},
+    {opacity: '0'}
+    ], {
+      duration:1000,
+      iterations:1,
+      delay:0
+  });
+  moonDiv.style.display = 'block';
+  moonDiv.animate([
+    {opacity: '0'},
+    {opacity: '1'}
+    ], {
+      duration:1000,
+      iterations:1,
+      delay:0
+  });
+  moonDiv.style.opacity = '1';
+}
+// could have lightlevel
+window.addEventListener("devicelight", function (event) {
+  var luminosity = event.value;
+  // console.log('light: '+luminosity);
+  if (luminosity < 10) {
+    rotateMoon();
+  }
+});
+
+var lightSide = document.getElementById('light-side');
+function rotateMoon() {
+  lightSide.animate([
+    {transform: 'rotateX(0deg)'},
+    {transform: 'rotateX(-180deg)'}
+  ], {
+    duration:1000,
+    iterations:1,
+    delay:0
+  });
+  lightSide.style.transform = 'rotateX(-180deg)';
+}
+
+function playPink() {
+
+}
+
+
+
+
+
+</script>
+</html>

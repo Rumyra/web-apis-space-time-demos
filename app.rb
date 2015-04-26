@@ -13,3 +13,7 @@ end
 get '/animation' do
 	erb :southamerica
 end
+
+get '/audio' do
+	erb :moon
+end
