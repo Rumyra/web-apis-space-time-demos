@@ -27,6 +27,8 @@
     <div id="golden-condor"></div>
     <img id="mcog" src="mcog.gif" />
 
+    <p>I've separated out the <a href="/">Geolocation</a> and <a href="/audio">Moon</a> demos, so the code can be separated & maybe easier to read :). View it all <a href="https://github.com/Rumyra/web-apis-space-time-demos">on github here.</a></p>
+
   </div>
 
 </body>
@@ -92,19 +94,6 @@ function showCities() {
   };
 }
 
-// var dest = getDest();
-
-// var Animations = {};
-// Animations.targets = {condor: document.getElementById('golden-condor')};
-// Animations.motionpathFly = new Animation(Animations.targets.condor,
-//   new MotionPathEffect("M25,25 " +
-//         "a150,100 0 0,1 300,0 " +
-//         "a75,50 0 0,1 150,0 " +
-//         "a35,20 0 0,1 70,0 " +
-//         "a2,1 0 0,1 35,0 " +
-//         "h45"), {
-//     duration: 2500
-// });
 var condor = document.getElementById('golden-condor');
 function animateCondor() {
   condor.animate([

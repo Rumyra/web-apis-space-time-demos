@@ -26,13 +26,16 @@
 
       <div id="map"></div>
 
+      <p>I've separated out the <a href="/">Geolocation</a> and <a href="/animation">South America</a> demos, so the code can be separated & maybe easier to read :). View it all <a href="https://github.com/Rumyra/web-apis-space-time-demos">on github here.</a></p>
+
     </div>
 
     <div id="moon">
       <section id="light-side"></section>
     </div>
 
-    <audio id="soundFile" src="clangers.wav"></audio>
+    <audio id="sound-file" src="clangers.wav"></audio>
+    <audio id="pink-floyd" src="pinkfloyd.mp3"></audio>
 
   </div>
   
@@ -79,7 +82,7 @@ function getDest(formEl) {
 }
 
 
-var soundEl = document.getElementById('soundFile'),
+var soundEl = document.getElementById('sound-file'),
   audioCtx = new AudioContext,
   audioSource = audioCtx.createMediaElementSource(soundEl),
   delay = audioCtx.createDelay();
@@ -137,6 +140,7 @@ window.addEventListener("devicelight", function (event) {
   // console.log('light: '+luminosity);
   if (luminosity < 10) {
     rotateMoon();
+    playPink();
   }
 });
 
@@ -153,8 +157,9 @@ function rotateMoon() {
   lightSide.style.transform = 'rotateX(-180deg)';
 }
 
+var darkSide = document.getElementById('pink-floyd');
 function playPink() {
-
+  darkSide.play();
 }
 
 
