@@ -57,12 +57,18 @@ input[type="submit"] {width:auto;}
   position: absolute; top:0px; left:0px;
   width: 100vw; height: 100vh;
   background-color: black;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  perspective: 1000px;
 }
 #light-side {
   margin:200px auto;
   width: 740px; height: 454px;
   background:black url('moon.jpg') no-repeat center center;
   transform-origin: bottom left;
+  -webkit-backface-visibility:visible;
+  -moz-backface-visibility:visible;
+  backface-visibility:visible;
 }
 
 

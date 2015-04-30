@@ -86,7 +86,7 @@ var soundEl = document.getElementById('sound-file'),
   audioCtx = new AudioContext,
   audioSource = audioCtx.createMediaElementSource(soundEl),
   delay = audioCtx.createDelay();
-delay.delayTime.value = 0.3;
+delay.delayTime.value = 0.2;
 
 function playClangers(dest) {
   if (dest == 'moon') {
@@ -147,14 +147,15 @@ window.addEventListener("devicelight", function (event) {
 var lightSide = document.getElementById('light-side');
 function rotateMoon() {
   lightSide.animate([
-    {transform: 'rotateX(0deg)'},
-    {transform: 'rotateX(-180deg)'}
+    {transform: 'rotateX(0deg)', opacity: '1'},
+    {transform: 'rotateX(360deg)', opacity: '0.3'}
   ], {
-    duration:1000,
+    duration:2000,
     iterations:1,
     delay:0
   });
-  lightSide.style.transform = 'rotateX(-180deg)';
+  lightSide.style.transform = 'rotateX(360deg)';
+  lightSide.style.opacity = '0.3';
 }
 
 var darkSide = document.getElementById('pink-floyd');
