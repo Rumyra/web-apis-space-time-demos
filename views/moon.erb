@@ -26,7 +26,7 @@
 
       <div id="map"></div>
 
-      <p>I've separated out the <a href="/">Geolocation</a> and <a href="/animation">South America</a> demos, so the code can be separated & maybe easier to read :). View it all <a href="https://github.com/Rumyra/web-apis-space-time-demos">on github here.</a></p>
+      <p>I've separated out the <a href="/">Geolocation</a> and <a href="/anim">Italy</a> demos, so the code can be separated & maybe easier to read :). View it all <a href="https://github.com/Rumyra/web-apis-space-time-demos">on github here.</a></p>
 
     </div>
 
@@ -137,8 +137,8 @@ function animateMoon() {
 // could have lightlevel
 window.addEventListener("devicelight", function (event) {
   var luminosity = event.value;
-  // console.log('light: '+luminosity);
-  if (luminosity < 10) {
+  console.log('light: '+luminosity);
+  if (luminosity < 5) {
     rotateMoon();
     playPink();
   }

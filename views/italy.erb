@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></head>
+  <title>A journey through Web API Space & Time</title>
+  <link type="text/css" href="style.css" rel="stylesheet" media="screen" />
+
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+  <script src="app.js"></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <form method="post" action="#" id="directions">
+      <div class="form-field">
+        <label for="">Where would you like to go?</label>
+        <input type="text" name="destination" id="destination" />
+        <input type="submit" Value="Get Directions" />
+      </div>
+    </form>
+
+    <div id="map"></div>
+
+    <div id="mario-bros"></div>
+    <img id="mcog" src="mcog.gif" />
+
+    <p>I've separated out the <a href="/">Geolocation</a> and <a href="/audio">Moon</a> demos, so the code can be separated & maybe easier to read :). View it all <a href="https://github.com/Rumyra/web-apis-space-time-demos">on github here.</a></p>
+
+  </div>
+
+</body>
+
+<script type="text/javascript">
+
+// initiate map
+var mapDiv = document.getElementById('map'),
+    newMap,
+    setCenter = {},
+    destinationForm = document.forms[0],
+    destination = '';
+
+function init() {
+  initMap();
+  getDest(destinationForm);
+
+}
+init();
+
+function initMap() {
+  // google map shizzle
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setCenter.lat = position.coords.latitude;
+      setCenter.lng = position.coords.longitude;
+      // see app.js for createMap function (creates a google map)
+      newMap = createMap(mapDiv, setCenter.lat, setCenter.lng);
+    });
+  } else {
+    console.warn('sorry, geolocation not supported');
+  }
+}
+
+function getDest(formEl) {
+  formEl.addEventListener("submit", function(e) {
+    e.preventDefault();
+    destination = destinationForm.destination.value;
+    playAnimation(destination);
+  }, false);
+}
+
+function playAnimation(dest) {
+  if (dest == 'italy') {
+    console.log('cities');
+    newMap = createMap(mapDiv, 42, 12, 7);
+    animateBros();
+    showCities();
+  } else if (dest == 'moon') {
+    console.log('clangers');
+  } else {
+    console.log('ambient');
+  }
+}
+
+function showCities() {
+  document.onkeypress = function(evt) {
+    // evt = evt || window.event;
+    var charCode = evt.keyCode;
+    if (charCode == 48) {
+      animateGif();
+    }
+  };
+}
+
+var mario = document.getElementById('mario-bros');
+function animateBros() {
+  mario.animate([
+    {opacity: '1', transform: 'translate(200px, 0px)'},
+    {opacity: '1', transform: 'translate(200px, -500px)'},
+    {opacity: '1', transform: 'translate(200px, 0px)'}
+    ], {
+      duration:2500,
+      iterations:1,
+      delay:300
+  });
+}
+
+var goldGif = document.getElementById('mcog');
+function animateGif() {
+  goldGif.animate([
+    {opacity: '0'},
+    {opacity: '1'}
+    ], {
+      duration:500,
+      iterations:1,
+      delay:0
+  });
+  goldGif.style.opacity = '1';
+}
+
+</script>
+</html>

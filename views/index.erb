@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8" />
+	<link rel="shortcut icon" href="favicon.ico" />
 	<meta name="viewport" content="width=initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></head>
 	<title>A journey through Web API Space & Time</title>
 	<link type="text/css" href="style.css" rel="stylesheet" media="screen">
@@ -22,7 +23,7 @@
 
 	  <div id="map"></div>
 
-		<p>I've separated out the <a href="/animation">South America</a> and <a href="/audio">Moon</a> demos, so the code can be separated & maybe easier to read :). View it all <a href="https://github.com/Rumyra/web-apis-space-time-demos">on github here.</a></p>
+		<p>I've separated out the <a href="/anim">Italy</a> and <a href="/audio">Moon</a> demos, so the code can be separated & maybe easier to read :). View it all <a href="https://github.com/Rumyra/web-apis-space-time-demos">on github here.</a></p>
 
 	</div>
 </body>
@@ -52,7 +53,7 @@ function showRoute() {
 		e.preventDefault();
 		var dest = destinationForm.destination.value;
 		// see app.js for the calculateRoute function (uses google maps directions service to give route)
-		calculateRoute('London', dest, newMap);
+		calculateRoute('Brighton', dest, newMap);
 	}
 }
 
