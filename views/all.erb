@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<meta name="viewport" content="width=initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></head>
+	<title>Demos | A journey through Web API Space & Time</title>
+	<link type="text/css" href="style.css" rel="stylesheet" media="screen">
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	<script src="app.js"></script>
+</head>
+
+<body>
+	<div class="container">
+
+		<section id="map-stuff">
+			<form method="post" action="#" id="directions">
+				<div class="form-field">
+					<label for="">Where would you like to go?</label>
+					<input type="text" name="destination" id="destination" />
+					<input type="submit" Value="Get Directions" />
+				</div>
+			</form>
+
+		  <div id="map"></div>
+
+		  <div id="mario-bros"></div>
+
+		  <p>Inputs are 'Bath', 'Italy' and 'Moon' to trigger demos. Then cover your device camera :)</p>
+		</section>
+
+		<div id="moon">
+      <section id="light-side"></section>
+    </div>
+
+    <audio id="clangers-sound" src="clangers.wav"></audio>
+    <audio id="pink-floyd" src="pinkfloyd.mp3"></audio>
+
+	</div>
+</body>
+
+<script type="text/javascript">
+
+// ~~~~~~ SETUP
+var mapDiv = document.getElementById('map'),
+		newMap,
+		setCenter = {},
+		destinationForm = document.forms[0],
+		mario = document.getElementById('mario-bros'),
+		clangers = document.getElementById('clangers-sound'),
+		firstContainer = document.getElementById('map-stuff'),
+    moonDiv = document.getElementById('moon'),
+		AudioContext = (window.AudioContext || window.webkitAudioContext),
+		audioCtx = new AudioContext,
+		clangersSound = audioCtx.createMediaElementSource(clangers),
+		delay = audioCtx.createDelay();
+		delay.delayTime.value = 0.2;
+
+// ~~~~~~ INITIATE A MAP (see app.js)
+function initMap() {
+  // google map shizzle
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setCenter.lat = position.coords.latitude;
+      setCenter.lng = position.coords.longitude;
+      // see app.js for createMap function (creates a google map)
+      newMap = createMap(mapDiv, setCenter.lat, setCenter.lng);
+    });
+  } else {
+    console.warn('sorry, geolocation not supported');
+  }
+}
+
+var switchDemo = function switchDemo() {
+	destinationForm.onsubmit = function(e) {
+		e.preventDefault();
+		var dest = destinationForm.destination.value;
+		if (dest === 'Bath') {
+			calculateRoute('Oxford', dest, newMap);
+		} else if (dest === 'Italy') {
+			newMap = createMap(mapDiv, 42, 12, 7);
+			animateBros();
+		} else if (dest === 'Moon') {
+			showMoon();
+			playClangers();
+		}
+		
+	}
+}
+
+// ~~~~~~~ SECOND animation
+var animateBros = function animateBros() {
+  mario.animate([
+    {opacity: '1', transform: 'translate(200px, 0px)'},
+    {opacity: '1', transform: 'translate(200px, -500px)'},
+    {opacity: '1', transform: 'translate(200px, 0px)'}
+    ], {
+      duration:2500,
+      iterations:1,
+      delay:300
+  });
+}
+
+// ~~~~~~~ THIRD audio
+var playClangers = function playClangers() {
+	clangersSound.connect(delay);
+  clangersSound.connect(audioCtx.destination);
+  delay.connect(audioCtx.destination);
+  clangers.play();
+}
+var showMoon = function showMoon() {
+  firstContainer.animate([
+    {opacity: '1'},
+    {opacity: '0'}
+    ], {
+      duration:1000,
+      iterations:1,
+      delay:0
+  });
+  moonDiv.style.display = 'block';
+  moonDiv.animate([
+    {opacity: '0'},
+    {opacity: '1'}
+    ], {
+      duration:1000,
+      iterations:1,
+      delay:0
+  });
+  moonDiv.style.opacity = '1';
+}
+
+// ~~~~~~~ FORTH ALL
+window.addEventListener("devicelight", function (event) {
+  var luminosity = event.value;
+  console.log('light: '+luminosity);
+  if (luminosity < 20) {
+    rotateMoon();
+    playPink();
+  }
+});
+
+var lightSide = document.getElementById('light-side');
+function rotateMoon() {
+  lightSide.animate([
+    {transform: 'rotateX(0deg)', opacity: '1'},
+    {transform: 'rotateX(360deg)', opacity: '0.3'}
+  ], {
+    duration:2000,
+    iterations:1,
+    delay:0
+  });
+  lightSide.style.transform = 'rotateX(360deg)';
+  lightSide.style.opacity = '0.3';
+}
+
+var darkSide = document.getElementById('pink-floyd');
+function playPink() {
+  darkSide.play();
+}
+
+
+
+
+
+var init = function init() {
+	initMap();
+	switchDemo();
+}
+init();
+
+</script>
+
+</html>

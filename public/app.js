@@ -1,7 +1,8 @@
 
-function createMap(mapEl, mapLat, mapLon) {
+function createMap(mapEl, mapLat, mapLon, zoom) {
+  zoom = typeof zoom !== 'undefined' ? zoom : 12;
   var myOptions = {
-    zoom: 12,
+    zoom: zoom,
     center: new google.maps.LatLng(mapLat, mapLon)
   };
   var mapObject = new google.maps.Map(mapEl, myOptions);

@@ -50,6 +50,12 @@ input[type="submit"] {width:auto;}
   border:2px solid white; box-shadow: 1px 1px 10px black;
 }
 
+#mario-bros {
+  opacity:0;
+  width:499px; height:552px;
+  background: transparent url('marioBros.png') no-repeat left top;
+}
+
 /*#soundFile {display: none;}*/
 #mapStuff {opacity: 1;}
 #moon {
