@@ -21,3 +21,7 @@ end
 get '/audio' do
 	erb :moon
 end
+
+get '/all' do
+  erb :all
+end
