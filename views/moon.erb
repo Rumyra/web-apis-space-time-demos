@@ -138,7 +138,7 @@ function animateMoon() {
 window.addEventListener("devicelight", function (event) {
   var luminosity = event.value;
   console.log('light: '+luminosity);
-  if (luminosity < 5) {
+  if (luminosity < 2) {
     rotateMoon();
     playPink();
   }
