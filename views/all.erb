@@ -76,7 +76,7 @@ var switchDemo = function switchDemo() {
 		e.preventDefault();
 		var dest = destinationForm.destination.value;
 		if (dest === 'Bath') {
-			calculateRoute('Oxford', dest, newMap);
+			calculateRoute('London', dest, newMap);
 		} else if (dest === 'Italy') {
 			newMap = createMap(mapDiv, 42, 12, 7);
 			animateBros();
@@ -133,7 +133,7 @@ var showMoon = function showMoon() {
 window.addEventListener("devicelight", function (event) {
   var luminosity = event.value;
   console.log('light: '+luminosity);
-  if (luminosity < 20) {
+  if (luminosity < 2) {
     rotateMoon();
     playPink();
   }
